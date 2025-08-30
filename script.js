@@ -49,7 +49,17 @@ window.addEventListener('click', function(event) {
 
 // 5. Form Submission Alert
 document.addEventListener('DOMContentLoaded', function() {
-    const checkoutForm = document.getElementById('checkout-form');
+    const document.addEventListener('DOMContentLoaded', function() {
+  const loginBtn = document.getElementById('login-btn');
+  loginBtn.addEventListener('click', function() {
+    // उदाहरण के लिए, एक साधारण अलर्ट या future में modal खोलें
+    alert('लॉगिन फीचर अभी उपलब्ध नहीं है। जल्द ही जोड़ दिया जाएगा।');
+    
+    // भविष्य में अगर आप एक लॉगिन modal इस्तेमाल करना चाहें:
+    // document.getElementById('login-modal').style.display = 'block';
+  });
+});
+ checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', function(e) {
             e.preventDefault();
