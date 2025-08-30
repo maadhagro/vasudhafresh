@@ -1,3 +1,51 @@
+/* 1. Reset और Box-Sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* 2. Responsive Container */
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* 3. Navbar Overflow */
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* 4. Category & Product Grid */
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* 5. Modal Sizing */
+.modal-content {
+  width: 90%;
+  max-width: 500px;
+  margin: 5% auto;
+  max-height: 90vh;
+  overflow-y: auto;
+}
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
