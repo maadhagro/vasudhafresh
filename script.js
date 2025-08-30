@@ -165,3 +165,6 @@ document.getElementById('checkout-form').onsubmit = function(e) {
 window.onload = function() {
   showCategory('all');
 };
+loginBtn.addEventListener('click', function() {
+  document.getElementById('login-modal').style.display = 'block';
+});
