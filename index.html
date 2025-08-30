@@ -91,7 +91,7 @@
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>आपकी गाड़ी</h2>
+                <h2>आपकी cart</h2>
                 <span class="close" onclick="closeCart()">&times;</span>
             </div>
             <div class="cart-items" id="cart-items">
@@ -103,6 +103,25 @@
             <button class="checkout-btn" onclick="openCheckout()">चेकआउट करें</button>
         </div>
     </div>
+
+     <!-- Login Modal -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+    <h2>लॉगिन करें</h2>
+    <form>
+      <div class="form-group">
+        <label>ईमेल या मोबाइल नंबर</label>
+        <input type="text" required>
+      </div>
+      <div class="form-group">
+        <label>पासवर्ड</label>
+        <input type="password" required>
+      </div>
+      <button type="submit" class="place-order-btn">लॉगिन</button>
+    </form>
+  </div>
+</div>
 
     <!-- Checkout Modal -->
     <div id="checkout-modal" class="modal">
