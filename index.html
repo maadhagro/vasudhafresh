@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VasudheFresh - Fresh Products Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>VasudheFresh</h1>
+                    <span>Fresh & Natural</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="खोजें उत्पाद, ब्रांड और अधिक">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <button class="login-btn">लॉगिन</button>
+                    <div class="cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-links">
+                <a href="#" onclick="showCategory('all')">सभी उत्पाद</a>
+                <a href="#" onclick="showCategory('milk')">दूध उत्पाद (40)</a>
+                <a href="#" onclick="showCategory('bakery')">बेकरी (25)</a>
+                <a href="#" onclick="showCategory('grocery')">किराना (120)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>ताज़ा और प्राकृतिक उत्पाद</h2>
+                <p>सीधे आपके घर तक</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2>श्रेणियां</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="showCategory('milk')">
+                    <i class="fas fa-glass-whiskey"></i>
+                    <h3>दूध उत्पाद</h3>
+                    <p>40 उत्पाद</p>
+                </div>
+                <div class="category-card" onclick="showCategory('bakery')">
+                    <i class="fas fa-bread-slice"></i>
+                    <h3>बेकरी</h3>
+                    <p>25 उत्पाद</p>
+                </div>
+                <div class="category-card" onclick="showCategory('grocery')">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h3>किराना</h3>
+                    <p>120 उत्पाद</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2 id="products-title">सभी उत्पाद</h2>
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>आपकी गाड़ी</h2>
+                <span class="close" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be shown here -->
+            </div>
+            <div class="cart-total">
+                <h3>कुल राशि: ₹<span id="cart-total">0</span></h3>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()">चेकआउट करें</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>चेकआउट</h2>
+                <span class="close" onclick="closeCheckout()">&times;</span>
+            </div>
+            <form id="checkout-form" class="checkout-form">
+                <div class="form-section">
+                    <h3>डिलीवरी की जानकारी</h3>
+                    <div class="form-group">
+                        <label>पूरा नाम *</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>मोबाइल नंबर *</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ईमेल</label>
+                        <input type="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>पूरा पता *</label>
+                        <textarea name="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>पिनकोड *</label>
+                            <input type="text" name="pincode" required>
+                        </div>
+                        <div class="form-group">
+                            <label>शहर *</label>
+                            <input type="text" name="city" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>विशेष निर्देश</h3>
+                    <div class="form-group">
+                        <label>डिलीवरी के लिए विशेष टिप्पणी या निर्देश</label>
+                        <textarea name="special-instructions" rows="3" placeholder="उदाहरण: गेट नंबर 2 से आएं, सुबह 10 बजे के बाद डिलीवरी करें"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>भुगतान विकल्प</h3>
+                    <div class="payment-option">
+                        <input type="radio" id="cod" name="payment" value="cod" checked>
+                        <label for="cod">
+                            <i class="fas fa-money-bill-wave"></i>
+                            कैश ऑन डिलीवरी (COD)
+                        </label>
+                    </div>
+                    <p class="payment-note">डिलीवरी के समय नकद भुगतान करें</p>
+                </div>
+
+                <div class="order-summary">
+                    <h3>ऑर्डर सारांश</h3>
+                    <div id="checkout-items"></div>
+                    <div class="total-amount">
+                        <h3>कुल भुगतान: ₹<span id="final-total">0</span></h3>
+                    </div>
+                </div>
+
+                <button type="submit" class="place-order-btn">ऑर्डर करें</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VasudheFresh</h3>
+                    <p>ताज़ा और प्राकृतिक उत्पाद सीधे आपके घर तक</p>
+                </div>
+                <div class="footer-section">
+                    <h4>संपर्क</h4>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@vasudhefresh.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>सेवा समय</h4>
+                    <p>सुबह 6:00 - रात 10:00</p>
+                    <p>सप्ताह के सभी दिन</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VasudheFresh. सभी अधिकार सुरक्षित।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
