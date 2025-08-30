@@ -1,3 +1,76 @@
+// 1. Lazy Loading Images
+function renderProducts(products) {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '';
+    products.forEach((prod, idx) => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <img src="${prod.img}" alt="${prod.name}" loading="lazy">
+            <h4>${prod.name}</h4>
+            <p>₹${prod.price}</p>
+            <button class="add-cart-btn" onclick="addToCart('${selectedCategory}',${idx})">गाड़ी में जोड़ें</button>
+        `;
+        grid.appendChild(productCard);
+    });
+}
+
+// 2. Quantity Handling in Cart
+function addToCart(cat, idx) {
+    let prod = productsData[cat][idx];
+    const existingIndex = cart.findIndex(item => item.name === prod.name);
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
+    } else {
+        cart.push({...prod, quantity: 1});
+    }
+    updateCartCount();
+    showCartModal();
+}
+
+// 3. Cart Count Update
+function updateCartCount() {
+    const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    document.querySelector('.cart-count').innerText = totalItems;
+}
+
+// 4. Modal Close on Outside Click
+window.addEventListener('click', function(event) {
+    const cartModal = document.getElementById('cart-modal');
+    const checkoutModal = document.getElementById('checkout-modal');
+    
+    if (event.target === cartModal) {
+        closeCart();
+    }
+    if (event.target === checkoutModal) {
+        closeCheckout();
+    }
+});
+
+// 5. Form Submission Alert
+document.addEventListener('DOMContentLoaded', function() {
+    const checkoutForm = document.getElementById('checkout-form');
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const orderData = {
+                name: formData.get('name'),
+                total: cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0)
+            };
+            
+            alert(`धन्यवाद ${orderData.name}! आपका ऑर्डर सफलतापूर्वक दर्ज हो गया है।
+ऑर्डर संख्या: VF${Date.now()}
+कुल राशि: ₹${orderData.total}`);
+            
+            cart = [];
+            updateCartCount();
+            closeCheckout();
+            this.reset();
+        });
+    }
+});
+
 const productsData = {
       milk: [{'name': 'Dairy Product 1', 'price': 40, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 2', 'price': 45, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 3', 'price': 50, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 4', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 5', 'price': 60, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 6', 'price': 65, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 7', 'price': 70, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 8', 'price': 75, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 9', 'price': 80, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 10', 'price': 85, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 11', 'price': 40, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 12', 'price': 45, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 13', 'price': 50, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 14', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 15', 'price': 60, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 16', 'price': 65, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 17', 'price': 70, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 18', 'price': 75, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 19', 'price': 80, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 20', 'price': 85, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 21', 'price': 40, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 22', 'price': 45, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 23', 'price': 50, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 24', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 25', 'price': 60, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 26', 'price': 65, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 27', 'price': 70, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 28', 'price': 75, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 29', 'price': 80, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 30', 'price': 85, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 31', 'price': 40, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 32', 'price': 45, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 33', 'price': 50, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 34', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 35', 'price': 60, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 36', 'price': 65, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 37', 'price': 70, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 38', 'price': 75, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 39', 'price': 80, 'img': 'https://via.placeholder.com/100x100?text=Milk'}, {'name': 'Dairy Product 40', 'price': 85, 'img': 'https://via.placeholder.com/100x100?text=Milk'}],
       bakery: [{'name': 'Bakery Item 1', 'price': 25, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 2', 'price': 31, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 3', 'price': 37, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 4', 'price': 43, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 5', 'price': 49, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 6', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 7', 'price': 61, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 8', 'price': 67, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 9', 'price': 25, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 10', 'price': 31, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 11', 'price': 37, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 12', 'price': 43, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 13', 'price': 49, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 14', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 15', 'price': 61, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 16', 'price': 67, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 17', 'price': 25, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 18', 'price': 31, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 19', 'price': 37, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 20', 'price': 43, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 21', 'price': 49, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 22', 'price': 55, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 23', 'price': 61, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 24', 'price': 67, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}, {'name': 'Bakery Item 25', 'price': 25, 'img': 'https://via.placeholder.com/100x100?text=Bakery'}],
